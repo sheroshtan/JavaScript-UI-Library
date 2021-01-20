@@ -101,9 +101,15 @@ const $lib = function (selector) {
 
 $lib.prototype.init = function (selector) {
   if (!selector) return this;
-  Object.assign(this, document.querySelectorAll(selector));
-  this.length = document.querySelectorAll(selector).length;
-  console.log(this);
+
+  if (selector.tagName) {
+    this[0] = selector;
+    this.length = 1;
+  } else {
+    Object.assign(this, document.querySelectorAll(selector));
+    this.length = document.querySelectorAll(selector).length;
+  }
+
   return this;
 };
 
@@ -124,9 +130,103 @@ window.$lib = $lib;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/lib/core.js");
 /* harmony import */ var _modules_display__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/display */ "./src/js/lib/modules/display.js");
+/* harmony import */ var _modules_classes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/classes */ "./src/js/lib/modules/classes.js");
+/* harmony import */ var _modules_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/actions */ "./src/js/lib/modules/actions.js");
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (_core__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/actions.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/modules/actions.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.on = function (event, cb) {
+  if (event && cb) {
+    for (let i = 0; i < this.length; i++) {
+      this[i].addEventListener(event, cb);
+    }
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.off = function (event, cb) {
+  if (event && cb) {
+    for (let i = 0; i < this.length; i++) {
+      this[i].removeEventListener(event, cb);
+    }
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handler) {
+  for (let i = 0; i < this.length; i++) {
+    if (handler) {
+      this[i].addEventListener('click', handler);
+    } else {
+      this[i].click();
+    }
+  }
+
+  return this;
+};
+
+/***/ }),
+
+/***/ "./src/js/lib/modules/classes.js":
+/*!***************************************!*\
+  !*** ./src/js/lib/modules/classes.js ***!
+  \***************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.addClass = function (...classes) {
+  for (let i = 0; i < this.length; i++) {
+    if (this[i].classList) {
+      this[i].classList.add(...classes);
+    }
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.removeClass = function (...classes) {
+  for (let i = 0; i < this.length; i++) {
+    if (this[i].classList) {
+      this[i].classList.remove(...classes);
+    }
+  }
+
+  return this;
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.toggleClass = function (clazz) {
+  for (let i = 0; i < this.length; i++) {
+    if (this[i].classList) {
+      this[i].classList.toggle(clazz);
+    }
+  }
+
+  return this;
+};
 
 /***/ }),
 
@@ -194,8 +294,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
 
 document.addEventListener('DOMContentLoaded', () => {
-  $lib('div').toggle();
+  $lib('.active').click(test);
 });
+
+function test() {
+  console.log('hello');
+}
 
 /***/ })
 

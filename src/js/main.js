@@ -1,5 +1,9 @@
 import './lib/lib';
 
 document.addEventListener('DOMContentLoaded', () => {
-    $lib('div').toggle();
+    $lib('.active').click(test);
 });
+
+function test() {
+    console.log('hello')
+}

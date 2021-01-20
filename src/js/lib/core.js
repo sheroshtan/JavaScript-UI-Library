@@ -5,9 +5,13 @@ const $lib = function(selector) {
 $lib.prototype.init = function(selector) {
     if(!selector) return this;
 
-    Object.assign(this, document.querySelectorAll(selector));
-    this.length = document.querySelectorAll(selector).length;
-    console.log(this);
+    if(selector.tagName) {
+        this[0] = selector;
+        this.length = 1;
+    } else {
+        Object.assign(this, document.querySelectorAll(selector));
+        this.length = document.querySelectorAll(selector).length;
+    }
     return this;
 };
 
