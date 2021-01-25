@@ -77,7 +77,6 @@ $lib.prototype.closest = function (selector) {
 }
 
 $lib.prototype.siblings = function () {
-    debugger;
     const objCopy = Object.assign({}, this);
     //let numberOfItems = 0;
     let counter = 0;
