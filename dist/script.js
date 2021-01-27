@@ -439,6 +439,18 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeOut = function (dura
   return this;
 };
 
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.fadeToggle = function (duration, display = 'block', final) {
+  for (let i = 0; i < this.length; i++) {
+    if (window.getComputedStyle(this[i]).display === 'none') {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeIn(duration, display, final);
+    } else {
+      Object(_core__WEBPACK_IMPORTED_MODULE_0__["default"])(this[i]).fadeOut(duration);
+    }
+  }
+
+  return this;
+};
+
 /***/ }),
 
 /***/ "./src/js/lib/modules/handlers.js":
@@ -499,14 +511,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lib_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/lib */ "./src/js/lib/lib.js");
 
 $lib("#first-btn").click(() => {
-  $lib('div').eq(1).fadeOut(800);
+  $lib('div').eq(1).fadeToggle(800);
 });
 $lib("#second-btn").click(() => {
-  $lib('div').eq(2).fadeOut(800);
+  $lib('div').eq(2).fadeToggle(800);
 });
 $lib("#third-btn").click(() => {
-  $lib('div').eq(1).fadeOut(800);
-  $lib('div').eq(2).fadeOut(800);
+  $lib('div').eq(1).fadeToggle(800);
+  $lib('div').eq(2).fadeToggle(800);
 });
 /*
 animation
