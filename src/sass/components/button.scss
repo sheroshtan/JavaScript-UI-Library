@@ -11,6 +11,8 @@
   vertical-align: middle;
   font-size: 14px;
   transition: all 0.2s;
+  user-select: none;
+  text-decoration: none;
 
   &:hover {
     background-color: lighten($primary, 10%);
