@@ -32,3 +32,11 @@ animation
 $lib('button').on('click', function() {
     $lib(this).fadeOut(3000);
 })*/
+
+$lib()
+    .get('https://jsonplaceholder.typicode.com/posts')
+    .then(res => console.log(res));
+
+$lib()
+    .post('https://jsonplaceholder.typicode.com/posts', {name: 'bob', age: 13})
+    .then(res => console.log(res));

@@ -2122,6 +2122,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_tab__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/tab */ "./src/js/lib/components/tab.js");
 /* harmony import */ var _components_collapse__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/collapse */ "./src/js/lib/components/collapse.js");
 /* harmony import */ var _components_slider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/slider */ "./src/js/lib/components/slider.js");
+/* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/requests */ "./src/js/lib/services/requests.js");
+
 
 
 
@@ -2492,6 +2494,57 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.click = function (handle
 
 /***/ }),
 
+/***/ "./src/js/lib/services/requests.js":
+/*!*****************************************!*\
+  !*** ./src/js/lib/services/requests.js ***!
+  \*****************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../core */ "./src/js/lib/core.js");
+
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.get = async function (url, responseType = 'json') {
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+  }
+
+  switch (responseType) {
+    case 'json':
+      return await res.json();
+
+    case 'text':
+      return await res.text();
+
+    case 'blob':
+      return await res.blob();
+  }
+};
+
+_core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.post = async function (url, data, responseType = 'text') {
+  const res = await fetch(url, {
+    method: 'POST',
+    body: data
+  });
+
+  switch (responseType) {
+    case 'json':
+      return await res.json();
+
+    case 'text':
+      return await res.text();
+
+    case 'blob':
+      return await res.blob();
+  }
+};
+
+/***/ }),
+
 /***/ "./src/js/main.js":
 /*!************************!*\
   !*** ./src/js/main.js ***!
@@ -2522,6 +2575,12 @@ animation
 $lib('button').on('click', function() {
     $lib(this).fadeOut(3000);
 })*/
+
+$lib().get('https://jsonplaceholder.typicode.com/posts').then(res => console.log(res));
+$lib().post('https://jsonplaceholder.typicode.com/posts', {
+  name: 'bob',
+  age: 13
+}).then(res => console.log(res));
 
 /***/ })
 
